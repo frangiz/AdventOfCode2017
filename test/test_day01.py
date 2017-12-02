@@ -17,6 +17,10 @@ class MyTestCase(unittest.TestCase):
         result = day01.part_a(test_input)
         self.assertEqual(result, expected)
 
+    def test_answer_part_a(self):
+        result = day01.part_a(util.get_file_contents('day01.txt'))
+        self.assertEqual(result, '1044')
+
     @data(
         [['1212'], '6'],
         [['1221'], '0'],
@@ -28,10 +32,6 @@ class MyTestCase(unittest.TestCase):
     def test_example_b(self, test_input, expected):
         result = day01.part_b(test_input)
         self.assertEqual(result, expected)
-
-    def test_answer_part_a(self):
-        result = day01.part_a(util.get_file_contents('day01.txt'))
-        self.assertEqual(result, '1044')
 
     def test_answer_part_b(self):
         result = day01.part_b(util.get_file_contents('day01.txt'))

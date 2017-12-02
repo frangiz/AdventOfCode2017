@@ -31,6 +31,10 @@ class MyTestCase(unittest.TestCase):
         result = day{0}.part_a(test_input)
         self.assertEqual(result, expected)
 
+    def test_answer_part_a(self):
+        result = day{0}.part_a(util.get_file_contents('day{0}.txt'))
+        self.assertEqual(result, '')
+
     @data(
         [],
         []
@@ -39,10 +43,6 @@ class MyTestCase(unittest.TestCase):
     def test_example_b(self, test_input, expected):
         result = day{0}.part_b(test_input)
         self.assertEqual(result, expected)
-
-    def test_answer_part_a(self):
-        result = day{0}.part_a(util.get_file_contents('day{0}.txt'))
-        self.assertEqual(result, '')
 
     def test_answer_part_b(self):
         result = day{0}.part_b(util.get_file_contents('day{0}.txt'))
