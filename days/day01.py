@@ -1,19 +1,16 @@
 def part_a(input):
     input_str = ''.join(input)
-    res = 0
-    for i, c in enumerate(input_str[:-1]):
-        if c == input_str[i+1]:
-            res += int(c)
-    res += int(input_str[0]) if input_str[0] == input_str[-1] else 0
-    return str(res)
+    chars = len(input_str)
+    return str(sum(int(c) for i, c in enumerate(input_str) if c == input_str[(i + 1) % chars]))
 
 
 def part_b(input):
     input_str = ''.join(input)
     res = 0
-    for i, c in enumerate(input_str):
-        if c == input_str[int((len(input_str) / 2 + i) % len(input_str))]:
-            res += int(c)
+    chars = len(input_str)
+    for i, c in enumerate(input_str[:chars // 2]):
+        if c == input_str[i + chars // 2]:
+            res += int(c) * 2
     return str(res)
 
 
