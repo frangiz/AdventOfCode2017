@@ -2,16 +2,16 @@ import argparse
 import glob
 import os
 
-day_template = """def part_a(input):
+day_template = """def part_a(puzzle_input):
     return str(0)
 
 
-def part_b(input):
+def part_b(puzzle_input):
     return str(0)
 
 
-def solve(input):
-    return {'a': part_a(input), 'b': part_b(input)}
+def solve(puzzle_input):
+    return {'a': part_a(puzzle_input), 'b': part_b(puzzle_input)}
 """
 
 test_day_template = """from days import day{0}

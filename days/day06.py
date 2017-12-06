@@ -2,8 +2,8 @@ import operator
 
 
 class MemoryReallocator:
-    def __init__(self, input):
-        self.banks = [int(i) for i in ''.join(input).split()]
+    def __init__(self, puzzle_input):
+        self.banks = [int(i) for i in ''.join(puzzle_input).split()]
         self.visited_states = {}
         self.cycles = 0
         self.last_state = ''
@@ -23,17 +23,17 @@ class MemoryReallocator:
                 done = True
 
 
-def part_a(input):
-    memRealloc = MemoryReallocator(input)
+def part_a(puzzle_input):
+    memRealloc = MemoryReallocator(puzzle_input)
     memRealloc.reallocate()
     return str(memRealloc.cycles + 1)
 
 
-def part_b(input):
-    memRealloc = MemoryReallocator(input)
+def part_b(puzzle_input):
+    memRealloc = MemoryReallocator(puzzle_input)
     memRealloc.reallocate()
     return str(memRealloc.cycles + 1 - memRealloc.visited_states[memRealloc.last_state])
 
 
-def solve(input):
-    return {'a': part_a(input), 'b': part_b(input)}
+def solve(puzzle_input):
+    return {'a': part_a(puzzle_input), 'b': part_b(puzzle_input)}

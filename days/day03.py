@@ -44,8 +44,8 @@ class Grid:
         return not any(p in self.values for p in positions)
 
 
-def part_a(input):
-    target = int(''.join(input))
+def part_a(puzzle_input):
+    target = int(''.join(puzzle_input))
     grid = Grid()
     grid.gen_cells(
         lambda pos: len(grid.values) + 1,
@@ -53,8 +53,8 @@ def part_a(input):
     return str(abs(grid.pos.x) + abs(grid.pos.y))
 
 
-def part_b(input):
-    target = int(''.join(input))
+def part_b(puzzle_input):
+    target = int(''.join(puzzle_input))
     grid = Grid()
     grid.gen_cells(
         lambda pos: sum(grid.values[a] for a in get_adjecent(pos) if a in grid.values),
@@ -62,5 +62,5 @@ def part_b(input):
     return str(grid.values[grid.pos])
 
 
-def solve(input):
-    return {'a': part_a(input), 'b': part_b(input)}
+def solve(puzzle_input):
+    return {'a': part_a(puzzle_input), 'b': part_b(puzzle_input)}

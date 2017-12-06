@@ -1,5 +1,5 @@
-def part_a(input):
-    input_ints = [int(i) for i in input]
+def part_a(puzzle_input):
+    input_ints = [int(i) for i in puzzle_input]
     index = 0
     steps = 0
     while index >= 0 and index < len(input_ints):
@@ -10,8 +10,8 @@ def part_a(input):
     return str(steps)
 
 
-def part_b(input):
-    input_ints = [int(i) for i in input]
+def part_b(puzzle_input):
+    input_ints = [int(i) for i in puzzle_input]
     index = 0
     steps = 0
     while index >= 0 and index < len(input_ints):
@@ -22,5 +22,5 @@ def part_b(input):
     return str(steps)
 
 
-def solve(input):
-    return {'a': part_a(input), 'b': part_b(input)}
+def solve(puzzle_input):
+    return {'a': part_a(puzzle_input), 'b': part_b(puzzle_input)}
