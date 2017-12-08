@@ -1,5 +1,3 @@
-import argparse
-import glob
 import os
 
 day_template = """def part_a(puzzle_input):
@@ -50,12 +48,20 @@ class MyTestCase(unittest.TestCase):
 """
 
 
-def regenerate_days_init_file():
-    number_of_days = len(glob.glob('days/day*'))
+def regenerate_days_init_file(day):
+    number_of_days = int(day)
     days = ['\"day{num:02d}\"'.format(num=day) for day in range(1, number_of_days + 1)]
-    unwrapped_contents = '__all__ = [\t{0}]'.format(', '.join(days))
+    day_lines = [days[i * 7: i * 7 + 7] for i in range(number_of_days // 7 + 1)]
+    day_lines = [day_lines[i] for i in range(len(day_lines)) if len(day_lines[i]) > 0]
+    text = '__all__ = [ '
+    text += ', '.join(day_lines[0])
+    if len(day_lines) > 1:
+        for line in day_lines[1:]:
+            text += ',\n' + (' ' * 12) + ', '.join(line)
+    text += ']'
+
     with open('days/__init__.py', 'w') as f:
-        f.write(unwrapped_contents)
+        f.write(text)
 
 
 def create_files_for_day(day):
@@ -68,16 +74,23 @@ def create_files_for_day(day):
     if not os.path.isfile('inputs/day' + day + '.txt'):
         with open('inputs/day' + day + '.txt', 'w') as f:
             pass
-    regenerate_days_init_file()
+    regenerate_days_init_file(day)
+
+
+def find_day_to_genrerate():
+    files = len(os.listdir('inputs'))
+    if files <= 24:  # 25 puzzle days for AoC
+        return '{0:02d}'.format(files + 1)
+    else:
+        return None
 
 
 def main():
-    parser = argparse.ArgumentParser(prog='Generate Day')
-    parser.add_argument('-d', '--day', type=str, help='The day to create files for.')
-    args = parser.parse_args()
-
-    if args.day is not None:
-        create_files_for_day(args.day)
+    day = find_day_to_genrerate()
+    if day is not None:
+        create_files_for_day(day)
+    else:
+        print('Max number of days created.')
 
 
 if __name__ == '__main__':
