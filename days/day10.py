@@ -1,30 +1,51 @@
-def knot_hash(num_registers, lengths):
-    registers = [i for i in range(num_registers)]
-    index = 0
-    skip = 0
-    lengths = list(map(int, ''.join(lengths).split(',')))
-    for length in lengths:
-        if length > len(registers):
-            continue
-        # collect items
-        items = registers[index:length + index]
-        if len(items) < length:
-            items += registers[0:length - len(items)]
-        # reverse them
-        items.reverse()
-        for i in range(len(items)):
-            registers[(i + index) % len(registers)] = items[i]
-        index = (index + length + skip) % num_registers
-        skip += 1
-    return registers[0] * registers[1]
+import functools
+
+
+class KnotHash():
+    def __init__(self, num_registers):
+        self.registers = [i for i in range(num_registers)]
+        self.index = 0
+        self.skip = 0
+
+    def calc_hash(self, lengths):
+        ascii_tokens = [ord(c) for c in lengths]
+        ascii_tokens += [17, 31, 73, 47, 23]
+        for _ in range(64):
+            self.knot_hash(ascii_tokens)
+        sparse_hash = self.registers
+        dense_hash = []
+        for block in [sparse_hash[i:i + 16] for i in range(0, len(sparse_hash), 16)]:
+            dense_hash.append(functools.reduce(lambda x, y: x ^ y, block, 0))
+        hex_string = ''
+        for n in dense_hash:
+            hex_string += '{:02x}'.format(n)
+        return hex_string
+
+    def knot_hash(self, lengths):
+        for length in lengths:
+            if length > len(self.registers):
+                continue
+            # collect items
+            items = self.registers[self.index:length + self.index]
+            if len(items) < length:
+                items += self.registers[0:length - len(items)]
+            # reverse them
+            items.reverse()
+            for i in range(len(items)):
+                self.registers[(i + self.index) % len(self.registers)] = items[i]
+            self.index = (self.index + length + self.skip) % len(self.registers)
+            self.skip += 1
 
 
 def part_a(puzzle_input):
-    return str(knot_hash(256, puzzle_input))
+    kh = KnotHash(256)
+    kh.knot_hash(list(map(int, ''.join(puzzle_input).split(','))))
+    return str(kh.registers[0] * kh.registers[1])
 
 
 def part_b(puzzle_input):
-    return str(0)
+    kh = KnotHash(256)
+    return kh.calc_hash(''.join(puzzle_input).strip())
 
 
 def solve(puzzle_input):
