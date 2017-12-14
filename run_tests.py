@@ -1,5 +1,6 @@
 import argparse
 import unittest
+from test.time_logging_test_runner import TimeLoggingTestRunner
 
 tests_abbreviations = {
     'ea': 'test_example_a',
@@ -13,7 +14,7 @@ def run_tests(prefix='test', pattern='test*.py', verbose=False):
     loader = unittest.TestLoader()
     loader.testMethodPrefix = prefix
     tests = loader.discover('test', pattern)
-    runner = unittest.runner.TextTestRunner(verbosity=verbosity_level)
+    runner = TimeLoggingTestRunner(verbosity=verbosity_level)
     runner.run(tests)
 
 

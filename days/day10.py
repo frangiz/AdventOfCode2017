@@ -16,10 +16,7 @@ class KnotHash():
         dense_hash = []
         for block in [sparse_hash[i:i + 16] for i in range(0, len(sparse_hash), 16)]:
             dense_hash.append(functools.reduce(lambda x, y: x ^ y, block, 0))
-        hex_string = ''
-        for n in dense_hash:
-            hex_string += '{:02x}'.format(n)
-        return hex_string
+        return ''.join('{:02x}'.format(dh) for dh in dense_hash)
 
     def knot_hash(self, lengths):
         len_registers = len(self.registers)

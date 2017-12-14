@@ -5,7 +5,8 @@ def calc(chars):
     index = 0
     garbage = False
     garbage_count = 0
-    while index < len(chars):
+    len_chars = len(chars)
+    while index < len_chars:
         if chars[index] == '!':
             index += 1
         elif garbage and chars[index] != '>':

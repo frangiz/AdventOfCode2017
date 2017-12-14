@@ -8,7 +8,7 @@ class Grid:
 
     def gen_cells(self, cell_value_func, stop_func):
         self.values[Point(0, 0)] = 1
-        for _ in range(10000000):  # just a big number
+        while True:
             if stop_func(self.pos):
                 break
             self.take_step()

@@ -7,8 +7,7 @@ def get_grid(puzzle_input):
     prefix = ''.join(puzzle_input).strip() + '-'
     for i in range(128):
         kh = day10.KnotHash(256)
-        h = kh.calc_hash(prefix + str(i))
-        bin_str = '{:0128b}'.format(int(h, 16))
+        bin_str = '{:0128b}'.format(int(kh.calc_hash(prefix + str(i)), 16))
         grid.append(bin_str)
     return grid
 

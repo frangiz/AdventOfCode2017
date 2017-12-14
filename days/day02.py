@@ -15,9 +15,9 @@ def part_b(puzzle_input):
         values = [int(i) for i in line.split()]
         for n1, n2 in combinations(values, 2):
             if (n1 / n2).is_integer():
-                result += int(n1 / n2)
+                result += n1 // n2
             elif (n2 / n1).is_integer():
-                result += int(n2 / n1)
+                result += n2 // n1
     return str(result)
 
 

@@ -23,12 +23,16 @@ def find_group(program_id, graph):
 
 
 def find_all_groups(graph):
-    all_programs = graph.keys()
     groups = []
-    for program in all_programs:
+    visited = set()
+    for program in graph.keys():
+        if program in visited:
+            continue
         group = sorted(list(find_group(program, graph)))
         if group not in groups:
             groups.append(group)
+        for p in group:
+            visited.add(p)
     return groups
 
 
