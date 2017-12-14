@@ -22,8 +22,9 @@ class KnotHash():
         return hex_string
 
     def knot_hash(self, lengths):
+        len_registers = len(self.registers)
         for length in lengths:
-            if length > len(self.registers):
+            if length > len_registers:
                 continue
             # collect items
             items = self.registers[self.index:length + self.index]
@@ -32,8 +33,8 @@ class KnotHash():
             # reverse them
             items.reverse()
             for i in range(len(items)):
-                self.registers[(i + self.index) % len(self.registers)] = items[i]
-            self.index = (self.index + length + self.skip) % len(self.registers)
+                self.registers[(i + self.index) % len_registers] = items[i]
+            self.index = (self.index + length + self.skip) % len_registers
             self.skip += 1
 
 
