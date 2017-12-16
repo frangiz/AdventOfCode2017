@@ -12,7 +12,7 @@ class MyTestCase(unittest.TestCase):
         [['s1,x3/4,pe/b'], 'baedc'])
     @unpack
     def test_example_a(self, test_input, expected):
-        registers = [chr(i) for i in range(97, 102)]
+        registers = [c for c in 'abcde']
         result = day16.promenade(test_input, registers, 1)
         self.assertEqual(result, expected)
 
@@ -23,7 +23,7 @@ class MyTestCase(unittest.TestCase):
     @data([['s1,x3/4,pe/b'], 'ceadb'])
     @unpack
     def test_example_b(self, test_input, expected):
-        registers = [chr(i) for i in range(97, 102)]
+        registers = [c for c in 'abcde']
         result = day16.promenade(test_input, registers, 2)
         self.assertEqual(result, expected)
 

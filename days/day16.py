@@ -11,31 +11,34 @@ def dance_once(puzzle_input, registers):
             index_a = registers.index(a)
             index_b = registers.index(b)
             registers[index_a], registers[index_b] = registers[index_b], registers[index_a]
-    return ''.join(registers)
+    return registers
 
 
 def promenade(puzzle_input, registers, iterations):
-    substitutions = {}
+    visited_states = []
     index = 0
-    state = ''.join(registers)
     while index < iterations:
-        if state in substitutions:
-            state = substitutions[state]
-        else:
-            new_state = ''.join(dance_once(puzzle_input, list(state)))
-            substitutions[state] = new_state
-            state = new_state
+        # A state that we already visited indicates that we have a loop.
+        state = ''.join(registers)
+        if state in visited_states:
+            state_index = visited_states.index(state)
+            loop_length = len(visited_states) - state_index
+            offset = (iterations - index) % loop_length
+            return visited_states[state_index + offset]
+        visited_states.append(state)
+        # Let's dance!
+        registers = dance_once(puzzle_input, registers)
         index += 1
-    return state
+    return ''.join(registers)
 
 
 def part_a(puzzle_input):
-    registers = [chr(i) for i in range(97, 113)]
+    registers = [c for c in 'abcdefghijklmnop']
     return promenade(puzzle_input, registers, 1)
 
 
 def part_b(puzzle_input):
-    registers = [chr(i) for i in range(97, 113)]
+    registers = [c for c in 'abcdefghijklmnop']
     return promenade(puzzle_input, registers, 1000000000)
 
 
