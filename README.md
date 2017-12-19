@@ -28,3 +28,4 @@ Execute with `python run_tests.py`. The script is able to run a single day and/o
 |[Day 16: Permutation Promenade](http://adventofcode.com/2017/day/16) | [day16.py](days/day16.py) | --- |
 |[Day 17: Spinlock](http://adventofcode.com/2017/day/17) | [day17.py](days/day17.py) | --- |
 |[Day 18: Duet](http://adventofcode.com/2017/day/18) | [day18.py](days/day18.py) | --- |
+|[Day 19: A Series of Tubes](http://adventofcode.com/2017/day/19) | [day19.py](days/day19.py) | Simple and stupid algorithm. Should be rewritten to handle branches properly. |
