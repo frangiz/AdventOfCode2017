@@ -113,7 +113,7 @@ def create_files(day):
     """
     if not os.path.isfile('days/day' + day + '.py'):
         with open('days/day' + day + '.py', 'w') as f:
-            f.writelines(day_template).format(day)
+            f.writelines(day_template.format(day))
     if not os.path.isfile('test/test_day' + day + '.py'):
         with open('test/test_day' + day + '.py', 'w') as f:
             f.writelines(test_day_template.format(day))
