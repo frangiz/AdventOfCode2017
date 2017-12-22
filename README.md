@@ -31,3 +31,4 @@ Execute with `python run_tests.py`. The script is able to run a single day and/o
 |[Day 19: A Series of Tubes](http://adventofcode.com/2017/day/19) | [day19.py](days/day19.py) | Simple and stupid algorithm. Should be rewritten to handle branches properly. |
 |[Day 20: Particle Swarm](http://adventofcode.com/2017/day/20) | [day20.py](days/day20.py) | --- |
 |[Day 21: Fractal Art](http://adventofcode.com/2017/day/21) | [day21.py](days/day21.py) | --- |
+|[Day 22: Sporifica Virus](http://adventofcode.com/2017/day/22) | [day22.py](days/day22.py) | --- |
