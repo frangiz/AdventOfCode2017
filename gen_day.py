@@ -1,7 +1,9 @@
 """Generates the files needed for the next day."""
 import os
+import re
+import urllib.request
 
-day_template = """\"\"\"--- Day {0}: Dayname ---\"\"\"
+day_template = '''\"\"\"--- Day {0}: {1} ---\"\"\"
 
 
 def part_a(puzzle_input):
@@ -32,10 +34,10 @@ def part_b(puzzle_input):
 
 def solve(puzzle_input):
     \"\"\"Returs the answer for both parts.\"\"\"
-    return {'a': part_a(puzzle_input), 'b': part_b(puzzle_input)}
-"""
+    return {{'a': part_a(puzzle_input), 'b': part_b(puzzle_input)}}
+'''
 
-test_day_template = """\"\"\"The tests for day{0}.\"\"\"
+test_day_template = '''\"\"\"The tests for day{0}.\"\"\"
 from days import day{0}
 from ddt import ddt, data, unpack
 import unittest
@@ -69,7 +71,9 @@ class MyTestCase(unittest.TestCase): # noqa D101
     def test_answer_part_b(self): # noqa D102
         result = day{0}.part_b(util.get_file_contents('day{0}.txt'))
         self.assertEqual(result, '')
-"""
+'''
+
+readme_line_template = '|[Day {0}: {1}](http://adventofcode.com/2017/day/{0}) | [day{0}.py](days/day{0}.py) | --- |'
 
 
 def regenerate_days_init_file(number_of_days):
@@ -97,7 +101,7 @@ def regenerate_days_init_file(number_of_days):
         f.write('\n')
 
 
-def create_files(day):
+def create_files(day, dayname):
     """
     Create the files needed for a new day.
 
@@ -109,18 +113,42 @@ def create_files(day):
 
     Args:
         day (string): The day to create formatted with two or more digits.
+        dayname (string): The name of the day.
 
     """
     if not os.path.isfile('days/day' + day + '.py'):
         with open('days/day' + day + '.py', 'w') as f:
-            f.writelines(day_template)
+            f.writelines(day_template.format(day, dayname))
     if not os.path.isfile('test/test_day' + day + '.py'):
         with open('test/test_day' + day + '.py', 'w') as f:
             f.writelines(test_day_template.format(day))
     if not os.path.isfile('inputs/day' + day + '.txt'):
         with open('inputs/day' + day + '.txt', 'w') as f:
             pass
+    if os.path.isfile('README.md'):
+        with open('README.md', 'a') as f:
+            f.write(readme_line_template.format(day, dayname))
     regenerate_days_init_file(int(day))
+
+
+def get_dayname(day):
+    """
+    Fetch the day from the AoC website and parses the name.
+
+    Args:
+        day (int): The day to fetch the name for.
+    Returns:
+        string: The name for the day.
+
+    """
+    try:
+        contents = urllib.request.urlopen("http://adventofcode.com/2017/day/{0}".format(day)).read()
+        m = re.search('<article class=\"day-desc\">.*<h2>.*: (.*) ---</h2>', str(contents))
+        if m is not None:
+            return m.group(1)
+    except urllib.error.HTTPError:
+        return 'n/a'
+    return 'n/a'
 
 
 def day_to_gen():
@@ -141,7 +169,8 @@ def day_to_gen():
 def main(): # noqa D103
     day = day_to_gen()
     if day is not None:
-        create_files(day)
+        dayname = get_dayname(int(day))
+        create_files(day, dayname)
     else:
         print('Max number of days created.')
 
