@@ -51,7 +51,6 @@ def dance(puzzle_input, programs, iterations):
             state_index = visited_states.index(state)
             loop_length = len(visited_states) - state_index
             offset = (iterations - index) % loop_length
-            print(offset)
             return visited_states[state_index + offset]
         visited_states.append(state)
         # Let's dance!
