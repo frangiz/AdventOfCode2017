@@ -34,3 +34,4 @@ Execute with `python run_tests.py`. The script is able to run a single day and/o
 |[Day 22: Sporifica Virus](http://adventofcode.com/2017/day/22) | [day22.py](days/day22.py) | --- |
 |[Day 23: Coprocessor Conflagration](http://adventofcode.com/2017/day/23) | [day23.py](days/day23.py) | No solution for the general case in part b. |
 |[Day 24: Electromagnetic Moat](http://adventofcode.com/2017/day/24) | [day24.py](days/day24.py) | Subgenerators are quite handy in a big search space. |
+|[Day 25: The Halting Problem](http://adventofcode.com/2017/day/25) | [day25.py](days/day25.py) | --- |
